@@ -1,133 +1,137 @@
-[TOC]
+[![VRTK logo][VRTK-Image]](#)
 
-## VR创新鼠标
+> ### VRTK Farm Yard Example - Virtual Reality Toolkit
+> A Farm Yard example scene of how to use VRTK v4 for rapidly building spatial computing solutions in the Unity software.
+> #### Requires the Unity software version 2019.4.28f1.
 
-### 方案设计
+[![License][License-Badge]][License]
+[![Backlog][Backlog-Badge]][Backlog]
+[![Discord][Discord-Badge]][Discord]
+[![Videos][Videos-Badge]][Videos]
+[![Twitter][Twitter-Badge]][Twitter]
 
-#### 现有操作映射
+## Beta Disclaimer
 
-鼠标常见规定操作及其作用：
+This project was built using Unity 2019.4.28f1 and should work as expected on that version. It is feasible to downgrade this project to a previous version of the Unity software but it may cause issues in doing so.
 
-|         动作         |               作用               |
-| :------------------: | :------------------------------: |
-|         移动         |      移动鼠标，光标跟随移动      |
-|       单击左键       | 选择某个对象，触发按钮，切换窗口 |
-|       双击左键       | 启动程序，打开窗口，选中文本词组 |
-|       单击右键       |        弹出对象的快捷菜单        |
-| 拖动（按住左键移动） |           移动对象位置           |
-|       滚动滚轮       |           上下翻动页面           |
-|       按下滚轮       |         打开自动翻页模式         |
-|       三击左键       |         选中全部文本内容         |
+This project also uses the Unity software legacy XR system and the old Unity Input Manager which is deprecated and may be removed in future versions of Unity, this may cause this project not to work as expected in future versions of the Unity software.
 
+There are Tilia packages that support the new Unity input system and new Unity XR management system so it would also be feasible to convert this project to work on later versions of the Unity software.
 
-将以上动作分解成基础操作：
+This VRTK v4 Farm Yard example project has been updated to use the latest [Tilia] packages but is still in development and is missing a number of features from the previous release that used the deprecated [VRTK.Prefabs] package.
 
-| 操作 |     方式     |           变量           |
-| :--: | :----------: | :----------------------: |
-| 滚动 | 滚轮，轨迹球 |  1或2个角度值double[2]   |
-| 点击 |     按键     |        布尔值bool        |
-| 遥感 |    陀螺仪    | 6自由度空间向量double[6] |
-| 移动 |     红外     |  2个水平坐标值double[2]  |
-| 触摸 |    触感屏    |         矩阵信息         |
+The current missing features are:
 
-部分鼠标添加了额外按钮和功能，例如下图的[罗技Anywhere2无线鼠标](https://www.logitech.com.cn/zh-cn/articles/11892)：
+* Locomotion
+  * Drag World
+* Pointers
+  * PlayArea Boundary Cursor
 
-<img src="https://i.loli.net/2021/10/08/ks6alHNEI3dcMrh.png" alt="image-20211008183229130" style="zoom:67%;" />
+These features will be added in due course.
 
-#### VR操控需求
+If you want to get started with the Tilia repos then check out the [Bowling Tutorial].
 
-VR场景中是三维空间六个自由度的运动，主要需要的功能主要包括：
+## Introduction
 
-前进后退，左右旋转，俯仰旋转，上下平移，左右平移，放大缩小
+VRTK aims to make building spatial computing solutions in the [Unity] software fast and easy for beginners as well as experienced developers.
 
-（翻滚角这个旋转自由度基本不会用到）
+> You do not need to download anything else to get this Unity project running, simply open the downloaded Unity project in the Unity software as outlined by the Getting Started guide below.
 
-现常见的二维鼠标操作映射解决方案：
+## Getting Started
 
-|   功能   |       操作       |
-| :------: | :--------------: |
-| 左右旋转 |     拖动光标     |
-| 俯仰旋转 |     拖动光标     |
-| 前后平移 |   双击左键前进   |
-| 上下平移 |        无        |
-| 左右平移 |        无        |
-| 放大缩小 | 触控板上二指操作 |
+### Downloading the project
 
+* Download this project repository to your local machine using *one* of the following methods:
+  * Git clone the repository with `git clone https://github.com/ExtendRealityLtd/VRTK.git`
+  * Download the zip file at `https://github.com/ExtendRealityLtd/VRTK/archive/master.zip` and extract it.
 
-#### 目标操作映射
+### Opening the downloaded project in the Unity software
 
-经过上述调研，我们计划添加的操作映射：
+> *Do not* drag and drop the VRTK project download into an existing Unity project. The VRTK repository download *is a Unity project* already and you should not nest a Unity project inside another Unity project. Follow the instructions below for opening the VRTK project within the Unity software.
 
-|             操作             |        作用        |
-| :--------------------------: | :----------------: |
-|          转动轨迹球          | 左右旋转，俯仰旋转 |
-| 移动鼠标（类似自动翻页模式） | 上下平移，左右平移 |
+#### Using the Unity Hub
 
+* Open the [Unity Hub] panel.
+* Click the `Add` Button:
 
+![image](https://user-images.githubusercontent.com/1029673/68544837-112cb180-03bf-11ea-8118-acd2640cfe30.png)
 
-### 计划步骤
+* Browse to the local directory where the repository was downloaded to and click `Select Folder`:
 
-#### 背景调研√
+![image](https://user-images.githubusercontent.com/1029673/68544843-1a1d8300-03bf-11ea-9b88-60f55eddf617.png)
 
-调研鼠标主要类型、鼠标操控方式、VR场景操控需求并进行总结。
+* The VRTK project will now show up in the Unity Hub project window, so select it to open the VRTK project in the Unity software:
 
-#### 方案设计√
+![image](https://user-images.githubusercontent.com/1029673/68544856-243f8180-03bf-11ea-8890-1be86159e7f6.png)
 
-转动轨迹球控制视角左右俯仰旋转，鼠标在桌面上平移控制上下左右移动。
+* The VRTK project will now open within the Unity software.
 
-#### 初步效果验证√
+#### Opening from within the Unity software
 
-在unity仿真平台上模拟上述方案，查看效果是否符合想象、是否优于现有鼠标VR控制方式。
+* Select `Main Menu -> File -> Open Project` within the Unity software.
+* Browse to the local directory where the repository was downloaded to and click `Select Folder`.
+* The VRTK project will now open within the Unity software.
 
-#### 初步硬件实现
+### Running the example scene
 
-购买轨迹球鼠标，保留原鼠标在平面上移动的二维坐标值输入，增加轨迹球二维角度值输入，用于控制VR视角，即左右转动轨迹球时人物左右旋转、前后转动轨迹球时人物俯仰旋转，可以灵活地使得人物转向任一方向。
+* Open the `Assets/Samples/Farm/Scenes/ExampleScene` scene.
+* Enable `Maximize On Play` in the Unity Game view control bar to ensure no performance issues are caused by the Unity Editor overhead.
+* Play the scene in the Unity Editor (`CTRL` + `P`).
+* The scene should automatically play within any Unity supported XR hardware.
+* Explore the farm yard and enjoy!
 
-保留鼠标原有二维移动功能的同时，用轨迹球操控视角，尝试体验给出使用感受反馈，便于进一步改进和拓展。
+## Made With VRTK
 
-#### 尝试改造鼠标
+[![image](https://cloud.githubusercontent.com/assets/1029673/21553226/210e291a-cdff-11e6-8639-91a3dddb1555.png)](http://store.steampowered.com/app/489380) [![image](https://cloud.githubusercontent.com/assets/1029673/21553234/2d105e4a-cdff-11e6-95a2-7dfdf7519e17.png)](http://store.steampowered.com/app/488760) [![image](https://cloud.githubusercontent.com/assets/1029673/21553257/5c17bf30-cdff-11e6-98ab-a017bc5cd00d.png)](http://store.steampowered.com/app/494830) [![image](https://cloud.githubusercontent.com/assets/1029673/21553262/6d82afd2-cdff-11e6-8400-882989a6252c.png)](http://store.steampowered.com/app/391640) [![image](https://cloud.githubusercontent.com/assets/1029673/21553270/7b8808f2-cdff-11e6-9adb-1e20fe557ae0.png)](http://store.steampowered.com/app/525680) [![image](https://cloud.githubusercontent.com/assets/1029673/21553293/9eef3e32-cdff-11e6-8dc7-f4a3866ac386.png)](http://store.steampowered.com/app/550360) [![image](https://user-images.githubusercontent.com/1029673/27344044-dc29bb78-55dc-11e7-80b6-a1524cb3ca14.png)](http://store.steampowered.com/app/584850) [![image](https://cloud.githubusercontent.com/assets/1029673/21553649/53ded8d8-ce01-11e6-8314-d33a873db745.png)](http://store.steampowered.com/app/510410) [![image](https://cloud.githubusercontent.com/assets/1029673/21553655/63e21e0c-ce01-11e6-90b0-477b14af993f.png)](http://store.steampowered.com/app/499760) [![image](https://cloud.githubusercontent.com/assets/1029673/21553665/713938ce-ce01-11e6-84f3-40db254292f1.png)](http://store.steampowered.com/app/548560) [![image](https://cloud.githubusercontent.com/assets/1029673/21553680/908ae95c-ce01-11e6-989f-68c38160d528.png)](http://store.steampowered.com/app/511370) [![image](https://cloud.githubusercontent.com/assets/1029673/21553683/a0afb84e-ce01-11e6-9450-aaca567f7fc8.png)](http://store.steampowered.com/app/472720)
 
-尝试将轨迹球加到普通鼠标上，可能涉及到电路板的焊接和驱动控制的编写，为拓展内容。
+Many games and experiences have already been made with VRTK.
 
-### 完成的工作
+Check out the [Made With VRTK] website to see the full list.
 
-#### 环境配置
+## Contributing
 
-安装配置Unity仿真平台，使用GitHub上面的VRTK库场景
+If you have a cool feature you'd like to show off within the Farm Yard that can be implemented with the base Tilia packages then feel free to raise a pull request with your contribution.
 
-#### 开始代码编写
+Please refer to the Extend Reality [Contributing guidelines] and the [project coding conventions].
 
-[教程链接点这里](http://c.biancheng.net/unity3d/)
+## Third Party Pacakges
 
-学习C#语言的基本语法
+The VRTK v4 Farm Yard example project uses the following 3rd party package:
 
-熟悉Unity面向对象编程框架，通过属性添加components的方式
+* [Quick Outline] by Chris Nolet.
 
-熟悉Unity搭建场景、添加脚本、关联物体的方式
+## License
 
-<img src="https://i.loli.net/2021/11/02/6k7KexPhdyr8uEi.png" alt="image-20211102022530578" style="zoom:67%;" />
+Code released under the [MIT License][License].
 
-搭建了一个3D场景，通过wsad前后左右移动，通过鼠标平移旋转视角，做了一个简易demo
+## Disclaimer
 
-#### 初步效果验证
+These materials are not sponsored by or affiliated with Unity Technologies or its affiliates. "Unity" is a trademark or registered trademark of Unity Technologies or its affiliates in the U.S. and elsewhere.
 
-在VRTK农场场景的基础上编写Player控制代码
+[VRTK-Image]: https://raw.githubusercontent.com/ExtendRealityLtd/related-media/main/github/readme/vrtk.png
+[Unity]: https://unity3d.com/
+[Made With VRTK]: https://www.vrtk.io/madewith.html
+[License]: LICENSE.md
+[Tilia]: https://www.vrtk.io/tilia.html
+[VRTK.Prefabs]: https://github.com/ExtendRealityLtd/VRTK.Prefabs
+[Unity Hub]: https://docs.unity3d.com/Manual/GettingStartedUnityHub.html
 
-<img src="https://i.loli.net/2021/11/02/vXaOi6TostlHw8f.png" alt="image-20211102021342527" style="zoom:67%;" />
+[License-Badge]: https://img.shields.io/github/license/ExtendRealityLtd/VRTK.svg
+[Backlog-Badge]: https://img.shields.io/badge/project-backlog-78bdf2.svg
 
-按照方案计划，鼠标在桌面平移控制人物前后左右移动，且为了方便操作会保持该速度运动（即惯性），按左键速度清零，有最大速度限制
+[Discord-Badge]: https://img.shields.io/badge/discord--7289DA.svg?style=social&logo=discord
+[Videos-Badge]: https://img.shields.io/badge/youtube--e52d27.svg?style=social&logo=youtube
+[Twitter-Badge]: https://img.shields.io/badge/twitter--219eeb.svg?style=social&logo=twitter
 
-由于现在还没有轨迹球，初步使用WASD四个键模拟轨迹球输入，进行视角旋转，操作上轨迹球应该会更加灵活效果更好一些
+[License]: LICENSE.md
+[Backlog]: http://tracker.vrtk.io
 
-[效果演示视频链接]()
+[Discord]: https://discord.com/invite/bRNS6hr
+[Videos]: http://videos.vrtk.io
+[Twitter]: https://twitter.com/VR_Toolkit
+[Bowling Tutorial]: https://github.com/ExtendRealityLtd/VRTK.Tutorials.VRBowling
 
-项目已经上传到[Gitee仓库]()
+[Quick Outline]: https://github.com/chrisnolet/QuickOutline
 
-#### tips:
-
-①Unity Hub许可证失效：先登录再激活许可证，否则手动激活 每隔一段时间 许可证文件会自动失效
-
-②穿模问题：注意人物Charcter Controller中心高度需要在平面之上，否则即使没有勾选Use Gravity也会逐渐下沉穿模、掉到平面下面
-
-③注意是每帧刷新一次，需要设置最大速度，防止发生瞬移的情况
-
+[Contributing guidelines]: https://github.com/ExtendRealityLtd/.github/blob/master/CONTRIBUTING.md
+[project coding conventions]: https://github.com/ExtendRealityLtd/.github/blob/master/CONVENTIONS/UNITY3D.md

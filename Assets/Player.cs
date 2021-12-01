@@ -1,9 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RawMouseDriver;
+using RawInputSharp;
 
 public class Player : MonoBehaviour
 {
+    //多鼠标
+    private RawMouseDriver.RawMouseDriver mousedriver;
+    private RawMouse mouse1;
+    private RawMouse mouse2;
+
     public Transform m_transform;
     //角色控制器组件
     CharacterController m_ch;
@@ -24,6 +31,9 @@ public class Player : MonoBehaviour
     //修改Start函数, 初始化摄像机的位置和旋转角度
     void Start()
     {
+        //多鼠标
+        mousedriver = new RawMouseDriver.RawMouseDriver();
+
         m_transform = this.transform;
         //获取角色控制器组件
         m_ch = this.GetComponent<CharacterController>();
@@ -44,13 +54,23 @@ public class Player : MonoBehaviour
     }
     void Control()
     {
+        //多鼠标
+        mousedriver.GetMouse(0, ref mouse1);
+        mousedriver.GetMouse(1, ref mouse1);
+        mousedriver.GetMouse(0, ref mouse2);
+        mousedriver.GetMouse(1, ref mouse2);
+
         //定义3个值控制移动
         float xm = 0, ym = 0, zm = 0;
         //重力运动
         //ym -= m_gravity * Time.deltaTime;
         //获取鼠标移动距离
-        float drh = Input.GetAxis("Mouse X");
-        float drv = Input.GetAxis("Mouse Y");
+        //float drh = Input.GetAxis("Mouse X");
+        //float drv = Input.GetAxis("Mouse Y");
+        float drh = mouse1.XDelta;
+        float drv = mouse1.YDelta;
+        Debug.Log(drh);
+        Debug.Log(drv);
         rh += drh;
         rv += drv;
         if(Input.GetMouseButtonDown(0))
@@ -93,7 +113,13 @@ public class Player : MonoBehaviour
         //旋转摄像机
         //m_camRot.x -= rv;
         //m_camRot.y += rh; 
-        if (Input.GetKey(KeyCode.W))
+        float drh2 = mouse2.XDelta;
+        float drv2 = mouse2.YDelta;
+        m_camRot.x -= drv2;
+        m_camRot.y += drh2;
+        Debug.Log(drh2);
+        Debug.Log(drv2);
+        /*if (Input.GetKey(KeyCode.W))
         {
             m_camRot.x -= m_rotSpeed * Time.deltaTime;
         }
@@ -108,7 +134,7 @@ public class Player : MonoBehaviour
         else if (Input.GetKey(KeyCode.D))
         {
             m_camRot.y += m_rotSpeed * Time.deltaTime;
-        }
+        }*/
         m_camTransform.eulerAngles = m_camRot;
 
         //使角色的面向方向与摄像机一致
