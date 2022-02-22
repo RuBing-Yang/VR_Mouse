@@ -19,8 +19,6 @@
     "com.unity.ugui": "1.0.0",
     "com.unity.xr.legacyinputhelpers": "2.1.8",
     "com.unity.xr.oculus.android": "2.38.6",
-    "com.unity.xr.oculus.standalone": "2.38.4",
-    "com.unity.xr.openvr.standalone": "2.0.5",
     "io.extendreality.tilia.camerarigs.spatialsimulator.unity": "1.4.16",
     "io.extendreality.tilia.camerarigs.trackedalias.unity": "1.6.8",
     "io.extendreality.tilia.camerarigs.unityxr": "1.5.7",
