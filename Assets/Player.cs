@@ -127,6 +127,7 @@ public class Player : MonoBehaviour
                 case RawInputMouseData mouseData:
                     Console.Write("WndProc ");
                     Console.WriteLine(mouseData.Mouse);
+                    Debug.Log(mouseData.Mouse);
                     int id = (((RawInputData)data).Device.VendorId << 16) +
                     ((RawInputData)data).Device.ProductId;
                     MyMouse mouse = mouseMap[id];
@@ -164,7 +165,6 @@ public class Player : MonoBehaviour
                         rh = 0.0f;
                         rv = 0.0f;
                     }
-                    //Console.WriteLine(mouse);
                     break;
                 case RawInputKeyboardData keyboard:
                     Console.Write("WndProc ");
@@ -219,18 +219,27 @@ public class Player : MonoBehaviour
         m_camRot = m_camTransform.eulerAngles;
         //锁定鼠标
         Screen.lockCursor = true;
-
+        Debug.Log("lock cursor");
+        
         ThreadStart inputref = new ThreadStart(threadStartFunc);
         Console.WriteLine("In Main: Creating the moues thread");
         Thread  inputThread = new Thread(inputref);
         inputThread.Start();
+        
     }
 
     void Update()
     {
         //RawInput线程还没获取设备
+        //Debug.Log("update");
+        Control();
+    }
+
+    void Control()
+    {
         if (mouseTrans == null || mouseRot == null) return;
-        //else Debug.Log($"mouseTrans: ({mouseTrans.x}, {mouseTrans.y})");
+        else Debug.Log($"mouseTrans: ({mouseTrans.x}, {mouseTrans.y})");
+
 
         //定义3个值控制移动
         float xm = 0, ym = 0, zm = 0;
@@ -261,18 +270,18 @@ public class Player : MonoBehaviour
                 xm += maxR * tranSpeed * Time.deltaTime * maxR * alpha;
             else if (rh < -maxR)
                 xm += -maxR * tranSpeed * Time.deltaTime * maxR * alpha;
-            else if (rh > -5.0f && rh < 5.0f)
-                xm += rh * tranSpeed * Time.deltaTime * rh * alpha;
+            else
+                xm += rh * Math.Abs(rh) * tranSpeed * Time.deltaTime * alpha;
 
             if (rv > maxR)
                 zm += maxR * tranSpeed * Time.deltaTime * maxR * alpha;
             else if (rv < -maxR)
                 zm += -maxR * tranSpeed * Time.deltaTime * maxR * alpha;
             else
-                zm += rv * tranSpeed * Time.deltaTime * rh * alpha;
+                zm += rv * Math.Abs(rv) * tranSpeed * Time.deltaTime * alpha;
         }
 
-        if ((xm != 0 || zm != 0) && count % 5 == 0) Debug.Log($"trans type = {transType}, rh={rh}, rv={rv}, xm={xm}, zm={zm}");        
+        if ((xm != 0 || zm != 0) && count % 5 == 0) Debug.Log($"trans type = {transType}, rh={rh}, rv={rv}, xm={xm}, zm={zm}");
 
         //使用角色控制器提供的Move函数进行移动
         m_ch.Move(m_transform.TransformDirection(new Vector3(xm, ym, zm)));
@@ -291,12 +300,12 @@ public class Player : MonoBehaviour
         mouseRot_y = mouseRot.y;
         m_camRot.x += d_mouseRot_y * rotatSense;
         m_camRot.y += d_mouseRot_x * rotatSense;
-        if (m_camRot.x > 60) m_camRot.x = 60;
-        if (m_camRot.x < -60) m_camRot.x = -60;
-        if (m_camRot.y > 190) m_camRot.y = 190;
-        if (m_camRot.y < -190) m_camRot.y = -190;
+        if (m_camRot.x > 60) m_camRot.x = 40;
+        if (m_camRot.x < -60) m_camRot.x = -20;
+        //if (m_camRot.y > 190) m_camRot.y = 190;
+        //if (m_camRot.y < -190) m_camRot.y = -190;
 
-        if (m_camRot.x != 0 || m_camRot.y != 0 && count % 5 == 0) 
+        if (m_camRot.x != 0 || m_camRot.y != 0 && count % 5 == 0)
             Debug.Log($"mouseRot.x= {mouseRot.x}, mouseRot.y={mouseRot.y}, \n" +
                 $"mouseRot_x_={mouseRot_x_}, mouseRot_y_ = {mouseRot_y_}, \n" +
                 $"m_camRot.x={m_camRot.x}, m_camRot.y={m_camRot.y}");
