@@ -12,7 +12,7 @@ using Linearstar.Windows.RawInput;
 public class Player : MonoBehaviour
 {
     //退出
-    private bool exit = false;
+    static private bool exit = false;
 
     //角色控制器组件
     CharacterController m_ch;
@@ -171,9 +171,10 @@ public class Player : MonoBehaviour
                     Console.WriteLine(keyboard.Keyboard);
                     if (keyboard.Keyboard.ScanCode == 1)
                     {
-                        mouseTrans.x = 0;
-                        mouseTrans.y = 0;
+                        //mouseTrans.x = 0;
+                        //mouseTrans.y = 0;
                         //按Esc退出
+                        exit = true;
                         Debug.Log("RawInputDevice UnregisterDevice");
                         RawInputDevice.UnregisterDevice(HidUsageAndPage.Mouse);
                         RawInputDevice.UnregisterDevice(HidUsageAndPage.Keyboard);
@@ -237,8 +238,15 @@ public class Player : MonoBehaviour
 
     void Control()
     {
-        if (mouseTrans == null || mouseRot == null) return;
-        else Debug.Log($"mouseTrans: ({mouseTrans.x}, {mouseTrans.y})");
+        if (exit) {
+            Screen.lockCursor = false;
+            return;
+        }
+
+        if (mouseTrans == null || mouseRot == null) 
+            return;
+        else 
+            Debug.Log($"mouseTrans: ({mouseTrans.x}, {mouseTrans.y})");
 
 
         //定义3个值控制移动
@@ -300,8 +308,8 @@ public class Player : MonoBehaviour
         mouseRot_y = mouseRot.y;
         m_camRot.x += d_mouseRot_y * rotatSense;
         m_camRot.y += d_mouseRot_x * rotatSense;
-        if (m_camRot.x > 60) m_camRot.x = 40;
-        if (m_camRot.x < -60) m_camRot.x = -20;
+        if (m_camRot.x > 40) m_camRot.x = 40;
+        if (m_camRot.x < -20) m_camRot.x = -20;
         //if (m_camRot.y > 190) m_camRot.y = 190;
         //if (m_camRot.y < -190) m_camRot.y = -190;
 

@@ -11239,6 +11239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 105914696}
+  - component: {fileID: 105914697}
   m_Layer: 0
   m_Name: BoundaryFence
   m_TagString: Untagged
@@ -11264,6 +11265,22 @@ Transform:
   m_Father: {fileID: 346314695}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &105914697
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105914695}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &108703182
 GameObject:
   m_ObjectHideFlags: 0
@@ -31715,6 +31732,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 595067787}
+  - component: {fileID: 595067788}
   m_Layer: 0
   m_Name: ArcheryTable
   m_TagString: Untagged
@@ -31741,6 +31759,22 @@ Transform:
   m_Father: {fileID: 346314695}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &595067788
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595067786}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &596329894
 GameObject:
   m_ObjectHideFlags: 0
@@ -61318,7 +61352,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 3
+  m_CollisionDetection: 0
 --- !u!143 &1204754781
 CharacterController:
   m_ObjectHideFlags: 0
@@ -95011,6 +95045,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1830333068}
+  - component: {fileID: 1830333069}
   m_Layer: 0
   m_Name: Haystacks
   m_TagString: Untagged
@@ -95039,6 +95074,22 @@ Transform:
   m_Father: {fileID: 346314695}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1830333069
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830333067}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1836299616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -97177,6 +97228,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1907226792}
+  - component: {fileID: 1907226793}
   m_Layer: 0
   m_Name: WheatField
   m_TagString: Untagged
@@ -97207,6 +97259,22 @@ Transform:
   m_Father: {fileID: 346314695}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1907226793
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907226791}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1907370013 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 6b339cb11c7fbf0498ee4d891daf52d9,
@@ -109291,6 +109359,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2019786206}
+  - component: {fileID: 2019786207}
   m_Layer: 0
   m_Name: Buildings
   m_TagString: Untagged
@@ -109320,6 +109389,22 @@ Transform:
   m_Father: {fileID: 408825389}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &2019786207
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019786205}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2022270453
 GameObject:
   m_ObjectHideFlags: 0
